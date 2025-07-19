@@ -22,6 +22,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="AuthScreen" options={{ headerShown: false }} />
         <Stack.Screen name="OTPScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="DashboardScreen" options={{ title: 'Bilan détaillé' }} />
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         <Stack.Screen name="+not-found" />
       </Stack>

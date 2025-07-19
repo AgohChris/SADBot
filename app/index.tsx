@@ -13,11 +13,16 @@ export default function Index() {
     AsyncStorage.getItem('isAuthenticated').then((value) => {
       if (value === 'true') {
         setIsAuthenticated(true);
-        router.replace('/');
       }
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace('/(tabs)');
+    }
+  }, [isAuthenticated]);
 
   if (loading) {
     return (

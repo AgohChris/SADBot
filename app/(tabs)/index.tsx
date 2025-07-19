@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   const [isListening, setIsListening] = useState(false);
   const [statusText, setStatusText] = useState('');
+  const router = useRouter();
 
   const handlePressIn = () => {
     setIsListening(true);
@@ -19,34 +21,40 @@ export default function HomeScreen() {
     setTimeout(() => setStatusText(''), 1500);
   };
 
+  const handleBilan = () => {
+    // Ici on intégrera la synthèse vocale plus tard
+    console.log('Lecture vocale du bilan...');
+  };
+
+  const handleDashboard = () => {
+    router.push('/DashboardScreen');
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.centerContent}>
+          {statusText ? <Text style={styles.statusText}>{statusText}</Text> : null}
+          <Text style={styles.welcomeText}>Bienvenue sur SADBot !</Text>
+        </View>
+        <View style={styles.bottomBar}>
+          <TouchableOpacity style={styles.bilanButton} onPress={handleBilan}>
+            <MaterialIcons name="campaign" size={32} color="#1abc54" />
+            <Text style={styles.bottomText}>Bilan vocal</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.dashboardButton} onPress={handleDashboard}>
+            <Ionicons name="grid" size={36} color="#fff" />
+            <Text style={styles.dashboardText}>Voir Bilan</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[styles.micButton, isListening && styles.micButtonActive]}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             activeOpacity={0.8}
           >
-            <Ionicons name="mic" size={60} color="#fff" />
-            <Text style={styles.micText}>Parler</Text>
+            <Ionicons name="mic" size={36} color="#fff" />
+            <Text style={styles.bottomText}>Parler</Text>
           </TouchableOpacity>
-          {statusText ? <Text style={styles.statusText}>{statusText}</Text> : null}
-        </View>
-        <View style={styles.bilanSection}>
-          <View style={styles.bilanCard}>
-            <Text style={styles.bilanTitle}>Aujourd'hui</Text>
-            <Text style={styles.vente}>Ventes : <Text style={styles.venteMontant}>25 000 F</Text></Text>
-            <Text style={styles.depense}>Dépenses : <Text style={styles.depenseMontant}>8 000 F</Text></Text>
-            <Text style={styles.benefice}>Bénéfice : <Text style={styles.beneficeMontant}>17 000 F</Text></Text>
-          </View>
-          <View style={styles.bilanCard}>
-            <Text style={styles.bilanTitle}>Cette Semaine</Text>
-            <Text style={styles.vente}>Ventes : <Text style={styles.venteMontant}>120 000 F</Text></Text>
-            <Text style={styles.depense}>Dépenses : <Text style={styles.depenseMontant}>40 000 F</Text></Text>
-            <Text style={styles.benefice}>Bénéfice : <Text style={styles.beneficeMontant}>80 000 F</Text></Text>
-          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -62,35 +70,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 24,
+    padding: 0,
   },
   centerContent: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  micButton: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    backgroundColor: '#1abc54',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 18,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  micButtonActive: {
-    backgroundColor: '#e53935',
-  },
-  micText: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 8,
+    width: '100%',
   },
   statusText: {
     fontSize: 20,
@@ -99,56 +85,80 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  bilanSection: {
-    width: '100%',
+  welcomeText: {
+    fontSize: 22,
+    color: '#222',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginHorizontal: 16,
     marginTop: 24,
-    marginBottom: 8,
+    marginBottom: 24,
   },
-  bilanCard: {
+  bottomBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+    paddingTop: 8,
+    backgroundColor: 'transparent',
+    gap: 18,
+  },
+  bilanButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fff',
     borderRadius: 16,
-    padding: 24,
-    marginBottom: 18,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
+    shadowRadius: 4,
+  },
+  dashboardButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1abc54',
+    borderRadius: 32,
+    width: 64,
+    height: 64,
+    marginHorizontal: 8,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
     shadowRadius: 6,
-    elevation: 3,
   },
-  bilanTitle: {
-    fontSize: 20,
+  dashboardText: {
+    color: '#fff',
     fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#222',
+    fontSize: 13,
+    marginTop: 2,
+    textAlign: 'center',
   },
-  vente: {
-    fontSize: 18,
-    marginBottom: 4,
-    color: '#222',
+  micButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1abc54',
+    borderRadius: 32,
+    width: 64,
+    height: 64,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
   },
-  venteMontant: {
-    color: '#1abc54',
+  micButtonActive: {
+    backgroundColor: '#e53935',
+  },
+  bottomText: {
+    fontSize: 14,
+    color: '#222',
     fontWeight: 'bold',
-    fontSize: 18,
-  },
-  depense: {
-    fontSize: 18,
-    marginBottom: 4,
-    color: '#222',
-  },
-  depenseMontant: {
-    color: '#e53935',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  benefice: {
-    fontSize: 18,
-    marginTop: 6,
-    color: '#222',
-  },
-  beneficeMontant: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: '#222',
+    marginTop: 2,
   },
 });
