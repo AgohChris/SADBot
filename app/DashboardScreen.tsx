@@ -17,22 +17,22 @@ export default function DashboardScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Résumé</Text>
-          <Text style={styles.resumeText}>Aujourd'hui : 17 000 F de bénéfice</Text>
+          <Text style={styles.resumeText}>Aujourdhui : 17 000 F de bénéfice</Text>
           <Text style={styles.resumeText}>Cette semaine : 80 000 F de bénéfice</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Ventes</Text>
-          <Text style={styles.detailText}>Aujourd'hui : 25 000 F</Text>
+          <Text style={styles.detailText}>Aujourdhui : 25 000 F</Text>
           <Text style={styles.detailText}>Cette semaine : 120 000 F</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Dépenses</Text>
-          <Text style={styles.detailText}>Aujourd'hui : 8 000 F</Text>
+          <Text style={styles.detailText}>Aujourdhui : 8 000 F</Text>
           <Text style={styles.detailText}>Cette semaine : 40 000 F</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Bénéfice</Text>
-          <Text style={styles.beneficeText}>Aujourd'hui : 17 000 F</Text>
+          <Text style={styles.beneficeText}>Aujourdhui : 17 000 F</Text>
           <Text style={styles.beneficeText}>Cette semaine : 80 000 F</Text>
         </View>
       </ScrollView>
